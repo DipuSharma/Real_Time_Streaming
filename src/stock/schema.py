@@ -5,3 +5,8 @@ class StockFilterSchema(BaseModel):
     interval: int = Field(description="Enter the time interval", default=5)
     api_key: str = Field(description="Enter the  generated api-key by https://www.alphavantage.co/ ", default="demo")
     sorted_by : str = Field(description="Sorted Streaming", default="LATEST")
+
+
+class UserRegistration(BaseModel):
+    username: str = Field(description="Enter username")
+    password: str = Field(description="Enter password")
