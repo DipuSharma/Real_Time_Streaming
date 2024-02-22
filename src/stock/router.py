@@ -2,7 +2,7 @@ import json
 import asyncio
 from fastapi import APIRouter, Depends, WebSocket
 from fastapi.responses import StreamingResponse
-from src.stock.tasks import fetch_stock_data, web_socket_stock
+from src.stock.tasks import fetch_stock_data
 from src.stock.schema import StockFilterSchema
 
 
