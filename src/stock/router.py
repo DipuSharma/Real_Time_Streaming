@@ -18,8 +18,6 @@ async def data_streaming(paylod: StockFilterSchema = Depends()):
             while not result.ready():
                 await asyncio.sleep(1)
             stock_data = result.get()
-            # if stock_data["data"]or stock_data.status == "failed":
-            #     yield json.dumps({"status": stock_data["data"]["Information"]})
             yield json.dumps({"symbol": symbol, "data": f"{stock_data}\n"} )
     return StreamingResponse(content=generate_stock_data(), media_type="application/json")
 
@@ -27,8 +25,6 @@ async def data_streaming(paylod: StockFilterSchema = Depends()):
 async def get_stocks(websocket: WebSocket, symbol: str="IBM"):
     await websocket.accept()
     while True:
-        result = web_socket_stock.delay(symbol)
+        result = fetch_stock_data.delay(symbol)
         stock_data = result.get()
-        # if stock_data["data"]["Information"] or stock_data.status == "failed":
-        #     yield json.dumps({"status": stock_data["data"]["Information"]})
         await websocket.send_text(json.dumps(stock_data))
